@@ -1,0 +1,9 @@
+bootJar.enabled = false
+jar.enabled = true
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('com.querydsl:querydsl-jpa') //compileOnly이면, 에러발생한다.. 2시간 삽질
+    compile('com.querydsl:querydsl-apt')
+}
+

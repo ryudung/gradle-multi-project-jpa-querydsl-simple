@@ -1,0 +1,61 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
+        classpath("io.franzbecker:gradle-lombok:1.8")
+    }
+}
+
+def querydslProjects = [
+        project(':domain'),
+        project(':web')
+]
+
+configure(querydslProjects) {
+
+    //https://github.com/ewerk/gradle-plugins/tree/master/querydsl-plugin
+    apply plugin: "com.ewerk.gradle.plugins.querydsl"
+    apply plugin: 'io.franzbecker.gradle-lombok' //for lombok
+
+    def querydslSrcDir = 'src/main/generated'
+
+    querydsl {
+        jpa = true
+        querydslSourcesDir = querydslSrcDir
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java', querydslSrcDir]
+            }
+        }
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+    group 'gradle-multi-project-jpa-querydsl'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly('org.projectlombok:lombok')
+    }
+}
+
