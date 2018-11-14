@@ -2,7 +2,7 @@ package com.example.web;
 
 import com.example.domain.Post;
 import com.example.domain.QPost;
-import com.example.web.repo.PostRepository;
+import com.example.domain.repo.PostRepository;
 import com.querydsl.core.types.Predicate;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
