@@ -40,6 +40,15 @@ configure(querydslProjects) {
     }
 }
 
+configurations {
+    all*.exclude group: 'javax.jms', module: 'jms'
+    all*.exclude group: 'com.sun.jdmk', module: 'jmxtools'
+    all*.exclude group: 'com.sun.jmx', module: 'jmxri'
+    all*.exclude group: 'log4j', module: 'log4j'
+    all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    published
+}
+
 subprojects {
 
     apply plugin: 'java'
@@ -47,7 +56,7 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
 
     sourceCompatibility = 1.8
-    group 'gradle-multi-project-jpa-querydsl'
+    group 'com.example'
     version '1.0-SNAPSHOT'
 
     repositories {
