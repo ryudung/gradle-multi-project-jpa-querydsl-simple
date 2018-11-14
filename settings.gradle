@@ -1,5 +1,4 @@
 rootProject.name = 'gradle-multi-project-jpa-querydsl'
-
 include 'web'
 include 'domain'
 include 'common'
