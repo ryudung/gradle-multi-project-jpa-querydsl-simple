@@ -3,28 +3,23 @@ package com.example.web.querydsl;
 import com.example.domain.post.Post;
 import com.example.domain.post.QPost;
 import com.example.domain.post.repository.PostRepository;
+import com.example.web.AbstractSpringBootTest;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-public class QueryDslTest {
+
+public class QueryDslTestAbstract extends AbstractSpringBootTest {
 
     @Autowired
     PostRepository postRepository;
 
     @Autowired
-    JPAQueryFactory queryFactory;
+    JPAQueryFactory jpaQueryFactory;
 
     @BeforeEach
     public void setUp(){
@@ -36,7 +31,7 @@ public class QueryDslTest {
     public void test(){
         QPost post = QPost.post;
 
-        Post fetchedPost = queryFactory.
+        Post fetchedPost = jpaQueryFactory.
                 selectFrom(post)
                 .where(post.id.eq(1L))
                     .fetchFirst();

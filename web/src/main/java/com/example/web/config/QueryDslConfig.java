@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 @Configuration
 public class QueryDslConfig {
     @Bean
-    public JPAQueryFactory jpaQuery(EntityManager entityManager){
+    public JPAQueryFactory jpaQueryFactory(EntityManager entityManager){
         return new JPAQueryFactory(entityManager);
     }
 }
