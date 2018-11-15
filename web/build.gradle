@@ -3,17 +3,17 @@ bootJar.enabled = true
 dependencies {
     compile project(':common')
     compile project(':domain')
-
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    
     compile('org.springframework.boot:spring-boot-starter-freemarker')
     compile('org.springframework.boot:spring-boot-starter-web')
-
-    runtimeOnly('mysql:mysql-connector-java')
-    testRuntimeOnly('com.h2database:h2')
 
     compile('com.querydsl:querydsl-jpa')
     compile('com.querydsl:querydsl-apt')
 
+    runtimeOnly('mysql:mysql-connector-java')
+
+    //테스트
+    testRuntimeOnly('com.h2database:h2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
