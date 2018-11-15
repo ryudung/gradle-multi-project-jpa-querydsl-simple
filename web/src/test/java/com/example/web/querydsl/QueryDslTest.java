@@ -1,7 +1,10 @@
-package com.example.web;
+package com.example.web.querydsl;
 
+import com.example.domain.post.Post;
+import com.example.domain.post.QPost;
 import com.example.domain.post.repository.PostRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,12 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class ApplicationTests {
+public class QueryDslTest {
 
     @Autowired
     PostRepository postRepository;
@@ -23,15 +26,21 @@ public class ApplicationTests {
     @Autowired
     JPAQueryFactory queryFactory;
 
-    @DisplayName("postRepository_존재")
-    @Test
-    public void postRepository_존재() {
-        assertNotNull(postRepository);
+    @BeforeEach
+    public void setUp(){
+        postRepository.save(new Post());
     }
 
-    @DisplayName("queryFactory_존재")
+    @DisplayName("queryDsl_테스트")
     @Test
-    public void queryFactory_존재(){
-        assertNotNull(queryFactory);
+    public void test(){
+        QPost post = QPost.post;
+
+        Post fetchedPost = queryFactory.
+                selectFrom(post)
+                .where(post.id.eq(1L))
+                    .fetchFirst();
+
+        assertEquals(new Long(1L), fetchedPost.getId());
     }
 }
