@@ -30,3 +30,4 @@ node_modules
 static
 target
 */src/main/resources/static/*
+Q*.java
