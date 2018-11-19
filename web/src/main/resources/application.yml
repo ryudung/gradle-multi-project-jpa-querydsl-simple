@@ -15,3 +15,10 @@ spring:
     password: sa
     url: jdbc:h2:mem:test_db;DB_CLOSE_ON_EXIT=FALSE
     username: sa
+
+---
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: validate
